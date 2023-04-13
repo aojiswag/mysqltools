@@ -7,6 +7,7 @@ import os
 UI_PATH = os.path.dirname(os.path.realpath(__file__)) + "/gui/main.ui"
 DB_FORM_PATH = os.path.dirname(os.path.realpath(__file__)) + "/config/dbform.csv"
 
+
 class MainWindow(QMainWindow, uic.loadUiType(UI_PATH)[0]):
     def __init__(self):
         super().__init__()
@@ -19,7 +20,7 @@ class MainWindow(QMainWindow, uic.loadUiType(UI_PATH)[0]):
         self.push_button_open_table_form.clicked.connect(self.open_table_form)
 
     def create_table_form_and_open(self):
-        
+        pass
 
     def insert_table_from_table_form(self):
         pass
