@@ -3,11 +3,13 @@ from PyQt5 import uic, QtGui
 import sys
 import os
 import shutil
+import numpy
+import pymysql
+import csv
 
 BASE_PATH = os.path.dirname(os.path.realpath(__file__))
 UI_PATH = BASE_PATH + "/gui/main.ui"
 DEFAULT_DB_FORM_PATH = BASE_PATH + "/config/dbform.csv"
-
 
 
 class MainWindow(QMainWindow, uic.loadUiType(UI_PATH)[0]):
@@ -27,25 +29,31 @@ class MainWindow(QMainWindow, uic.loadUiType(UI_PATH)[0]):
         shutil.copy(DEFAULT_DB_FORM_PATH, form_file[0])
         self.line_edit_table_form_dir.setText(form_file[0])
 
-
     def insert_table_from_table_form(self):
-        pass
+        connection = pymysql.connect(host="127.0.0.1", user="root", password=self.line_edit_password.text(),
+                                     db=self.line_edit_db_name.text(), charset='utf8')
+        db = connection.cursor()
+
+        with open(self.line_edit_table_form_dir.text(), newline='') as table_form_file:
+            reader = csv.reader(table_form_file)
+            data = list(reader)
+
+        print(data)
 
     def open_table_form(self):
         form_file = QFileDialog.getOpenFileName(self, 'Add form', BASE_PATH,
                                                 "Comma Separated Values (*.csv)")
         self.line_edit_table_form_dir.setText(form_file[0])
 
-
     def resizeEvent(self, a0: QtGui.QResizeEvent) -> None:
+        print("evented")
         # update font size when resized (dynamic)
         resize_parent = self.findChildren(QGridLayout, name="grid_layout_insert_table_tool")[0]
-
         for i in range(resize_parent.count()):
             widget = resize_parent.itemAt(i).widget()
             if widget is not None:
                 font = widget.font()
-                font.setPointSize(int(widget.geometry().height() / 2) - 2)
+                font.setPointSize(int(widget.geometry().height() / 3) - 2)
                 widget.setFont(font)
 
 
