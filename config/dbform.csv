@@ -1,2 +1,1 @@
-Column,Datatype,Primary Key,Not Null,Unique Key,Binary,Unsigned,Zero Filled,Auto Increment,Generated Column,Default / Expression
-,,,,,,,,,,
+Column,Datatype,Datalen,Primary Key,Not Null,Unique Key,Binary,Unsigned,Zero Filled,Auto Increment,Generated Column,Default / Expression
