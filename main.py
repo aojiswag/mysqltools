@@ -82,16 +82,6 @@ class MainWindow(QMainWindow, uic.loadUiType(UI_PATH)[0]):
         except FileNotFoundError:
             return
 
-    def resizeEvent(self, a0: QtGui.QResizeEvent) -> None:
-        # update font size when resized (dynamic)
-        resize_parent = self.findChildren(QGridLayout, name="grid_layout_insert_table_tool")[0]
-        for i in range(resize_parent.count()):
-            widget = resize_parent.itemAt(i).widget()
-            if widget is not None:
-                font = widget.font()
-                font.setPointSize(int(widget.geometry().height() / 3) - 2)
-                widget.setFont(font)
-
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
